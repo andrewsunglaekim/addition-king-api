@@ -12,15 +12,27 @@ app.get('/', async (req, res) => {
   res.json(scores);
 });
 
-app.post('/scores', async(req, res) => {
+app.post('/scores', async (req, res) => {
   console.log(req.body);
   try {
     await Score.createOne(req.body);
     console.log('created!');
+    res.sendStatus(200);
   } catch (err) {
     console.log(err);
   }
 });
+
+app.get('/leaderboards/:answerRange', async (req, res) => {
+  console.log('getting leaderbaord');
+  const scores = await Score.getLeaderboard(req.params.answerRange);
+  res.json(scores);
+});
+
+app.get('/topPlayed', async (req, res) => {
+  const scores = await Score.getTopPlayedModes();
+  res.json(scores);
+})
 
 
 app.listen(4000);

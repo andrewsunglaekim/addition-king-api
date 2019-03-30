@@ -14,6 +14,14 @@ class Score {
       scoreObject.answerRange,
     ]);
   }
+  static async getLeaderboard(answerRange) {
+    const scores = await db.any('SELECT * FROM scores WHERE answerRange = $1 ORDER BY numCorrect DESC, numSeconds ASC;', [answerRange]);
+    return scores;
+  }
+  static async getTopPlayedModes() {
+    const scores = await db.any('SELECT answerRange, COUNT(*) from scores GROUP BY answerRange ORDER BY COUNT(*) desc;');
+    return scores;
+  }
 }
 
 module.exports = Score;
