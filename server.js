@@ -25,13 +25,21 @@ app.post('/scores', async (req, res) => {
 
 app.get('/leaderboards/:answerRange', async (req, res) => {
   console.log('getting leaderbaord');
-  const scores = await Score.getLeaderboard(req.params.answerRange);
-  res.json(scores);
+  try {
+    const scores = await Score.getLeaderboard(req.params.answerRange);
+    res.json(scores);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.get('/topPlayed', async (req, res) => {
-  const scores = await Score.getTopPlayedModes();
-  res.json(scores);
+  try {
+    const scores = await Score.getTopPlayedModes();
+    res.json(scores);
+  } catch (err) {
+    console.log(err);
+  }
 })
 
 
