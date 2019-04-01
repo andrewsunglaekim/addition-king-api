@@ -15,7 +15,7 @@ class Score {
     ]);
   }
   static async getLeaderboard(answerRange) {
-    const scores = await db.any('SELECT * FROM scores WHERE answerRange = $1 ORDER BY numCorrect DESC, numSeconds ASC;', [answerRange]);
+    const scores = await db.any('SELECT * FROM scores WHERE answerRange = $1 ORDER BY numCorrect DESC, numSeconds ASC LIMIT 10;', [answerRange]);
     return scores;
   }
   static async getTopPlayedModes() {
