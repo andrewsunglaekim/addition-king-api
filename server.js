@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const Score = require('./Score');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:8080',
+}));
 app.use(bodyParser.json());
 
 app.get('/', async (req, res) => {
